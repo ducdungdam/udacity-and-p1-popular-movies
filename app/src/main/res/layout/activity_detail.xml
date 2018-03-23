@@ -56,7 +56,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <TextView
-      android:id="@+id/error_network"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="@dimen/large_horizontal_margin"
@@ -69,7 +68,6 @@
       android:visibility="@{viewModel.state == State.NO_NETWORK ? View.VISIBLE : View.GONE}"/>
 
     <android.support.v4.widget.NestedScrollView
-      android:id="@+id/test"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:clipToPadding="false"
