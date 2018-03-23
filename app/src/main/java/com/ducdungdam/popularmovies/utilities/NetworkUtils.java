@@ -21,6 +21,9 @@ public final class NetworkUtils {
   public static boolean hasNetwork(Context context) {
     ConnectivityManager cm =
         (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    if (cm == null) {
+      return false;
+    }
     NetworkInfo netInfo = cm.getActiveNetworkInfo();
     return netInfo != null && netInfo.isConnectedOrConnecting();
   }
