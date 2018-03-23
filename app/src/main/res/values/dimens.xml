@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Global -->
+  <dimen name="movie_item_spacing">8dp</dimen>
+
+  <dimen name="horizontal_margin">16dp</dimen>
+  <dimen name="vertical_margin">16dp</dimen>
+  <dimen name="large_vertical_margin">32dp</dimen>
+  <dimen name="small_vertical_margin">8dp</dimen>
+
+  <dimen name="text_title">18sp</dimen>
+  <dimen name="text_subtitle">16sp</dimen>
+  <dimen name="text">14sp</dimen>
+  <dimen name="text_line_spacing_extra">8sp</dimen>
+
+  <dimen name="divider_height">1dp</dimen>
+
+  <!-- Main -->
+  <dimen name="main_movie_poster_height">250dp</dimen>
+
+  <!-- Detail -->
+  <dimen name="detail_app_bar_height">250dp</dimen>
+  <dimen name="detail_view_overlap_horizontal">32dp</dimen>
+  <dimen name="detail_movie_poster_width">100dp</dimen>
+  <dimen name="detail_movie_poster_height">150dp</dimen>
+</resources>

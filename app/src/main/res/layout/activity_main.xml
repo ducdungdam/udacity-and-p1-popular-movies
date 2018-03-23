@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <data>
+    <import type="android.view.View"/>
+    <variable
+      name="viewModel"
+      type="com.ducdungdam.popularmovies.viewmodel.MainViewModel"/>
+  </data>
+
+  <android.support.design.widget.CoordinatorLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
+
+    <android.support.design.widget.AppBarLayout
+      android:id="@+id/appbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimaryDark"
+        android:fitsSystemWindows="true"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/colorPrimaryText"/>
+    </android.support.design.widget.AppBarLayout>
+
+    <ProgressBar
+      android:id="@+id/loading_bar"
+      style="?android:attr/progressBarStyleLarge"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:visibility="@{safeUnbox(viewModel.isLoading) ? View.VISIBLE : View.GONE}"/>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/rv_movie_list"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/colorPrimary"
+      android:visibility="@{safeUnbox(viewModel.isLoading) ? View.INVISIBLE : View.VISIBLE}"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+  </android.support.design.widget.CoordinatorLayout>
+</layout>
