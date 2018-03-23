@@ -22,7 +22,9 @@ import com.ducdungdam.popularmovies.adapter.MovieAdapter;
 import com.ducdungdam.popularmovies.data.PopularMoviesPreferences;
 import com.ducdungdam.popularmovies.databinding.ActivityMainBinding;
 import com.ducdungdam.popularmovies.model.Movie;
+import com.ducdungdam.popularmovies.utilities.NetworkUtils;
 import com.ducdungdam.popularmovies.viewmodel.MainViewModel;
+import com.ducdungdam.popularmovies.viewmodel.BaseViewModel.State;
 import com.ducdungdam.popularmovies.widget.MovieItemDecoration;
 import com.ducdungdam.popularmovies.widget.SortDialog;
 import com.ducdungdam.popularmovies.widget.SortDialog.OnClickListener;
@@ -90,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
       sortDialog.setOnClickListener(new OnClickListener() {
         @Override
         public void onClick(String sortType) {
+          if (!NetworkUtils.hasNetwork(MainActivity.this)) {
+            model.state.set(State.NO_NETWORK);
+            sortDialog.dismiss();
+            return;
+          }
+
           String currentSortType = PopularMoviesPreferences.getSortType(getApplicationContext());
           if (!currentSortType.equals(sortType)) {
             PopularMoviesPreferences.setSortType(getApplicationContext(), sortType);
@@ -101,6 +109,17 @@ public class MainActivity extends AppCompatActivity {
       sortDialog.show(getSupportFragmentManager(), SortDialog.TAG);
     }
     return super.onOptionsItemSelected(item);
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
+    if (model.state.get() == State.NO_NETWORK &&
+        NetworkUtils.hasNetwork(this)) {
+      String sortType = PopularMoviesPreferences.getSortType(this);
+      PopularMoviesPreferences.setSortType(this, sortType);
+      model.getSortType().setValue(sortType);
+    }
   }
 
   private void startDetailActivity(View v, int movieId) {

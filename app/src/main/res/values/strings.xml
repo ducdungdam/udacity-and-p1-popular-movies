@@ -38,4 +38,5 @@
   <!-- Default error message -->
   <string name="error_title">Oops&#8230;</string>
   <string name="error_message">Something went wrong. Please try again.</string>
+  <string name="error_network_message">Seems like your are not connected to the Internet. Please turn it on and try it again.</string>
 </resources>

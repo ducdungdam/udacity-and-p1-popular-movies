@@ -109,7 +109,7 @@ public class MovieRepository {
    * @param context Context used to access String Resource
    * @return Movie by given ID
    */
-  public static LiveData<Movie> getMovie(Context context, int movieId) {
+  public static LiveData<Movie> getMovie(Context context, int movieId, final LoadingListener l) {
     String tmdbApiKey = context.getResources().getString(R.string.TMDB_API_KEY);
 
     final MutableLiveData<Movie> movie = new MutableLiveData<>();
@@ -121,6 +121,7 @@ public class MovieRepository {
       @Override
       public void onResponse(@NonNull Call<Movie> call, @NonNull Response<Movie> response) {
         movie.postValue(response.body());
+        l.onFinish();
       }
 
       @Override

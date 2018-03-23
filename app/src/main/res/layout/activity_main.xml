@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto">
+
   <data>
     <import type="android.view.View"/>
+    <import type="com.ducdungdam.popularmovies.viewmodel.BaseViewModel.State"/>
     <variable
       name="viewModel"
       type="com.ducdungdam.popularmovies.viewmodel.MainViewModel"/>
@@ -29,20 +31,33 @@
         app:titleTextColor="@color/colorPrimaryText"/>
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+      android:id="@+id/error_network"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/large_horizontal_margin"
+      android:layout_marginEnd="@dimen/large_horizontal_margin"
+      android:layout_marginLeft="@dimen/large_horizontal_margin"
+      android:layout_marginRight="@dimen/large_horizontal_margin"
+      android:layout_gravity="center"
+      android:text="@string/error_network_message"
+      android:textAlignment="center"
+      android:visibility="@{viewModel.state == State.NO_NETWORK ? View.VISIBLE : View.GONE}"/>
+
     <ProgressBar
       android:id="@+id/loading_bar"
       style="?android:attr/progressBarStyleLarge"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_gravity="center"
-      android:visibility="@{safeUnbox(viewModel.isLoading) ? View.VISIBLE : View.GONE}"/>
+      android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}"/>
 
     <android.support.v7.widget.RecyclerView
       android:id="@+id/rv_movie_list"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/colorPrimary"
-      android:visibility="@{safeUnbox(viewModel.isLoading) ? View.INVISIBLE : View.VISIBLE}"
+      android:visibility="@{viewModel.state == State.DEFAULT ? View.VISIBLE : View.INVISIBLE}"
       app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
   </android.support.design.widget.CoordinatorLayout>
 </layout>

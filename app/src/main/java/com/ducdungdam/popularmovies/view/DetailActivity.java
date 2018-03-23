@@ -61,16 +61,20 @@ public class DetailActivity extends AppCompatActivity {
 
     setSupportActionBar(rootView.toolbar);
     ActionBar actionBar = getSupportActionBar();
-    if(actionBar != null) {
+    if (actionBar != null) {
       actionBar.setDisplayHomeAsUpEnabled(true);
       actionBar.setDisplayShowTitleEnabled(false);
     }
 
     model = ViewModelProviders.of(this).get(DetailViewModel.class);
+    rootView.setViewModel(model);
+
     model.getMovie(movieId).observe(this, new Observer<Movie>() {
       @Override
       public void onChanged(@Nullable final Movie movie) {
-        rootView.setMovie(movie);
+        if (movie != null) {
+          rootView.setMovie(movie);
+        }
       }
     });
   }
@@ -93,7 +97,6 @@ public class DetailActivity extends AppCompatActivity {
   /**
    * Loads an Image by a given String Source to an ImageView in DetailsActivity.
    * It also can be used for DataBinding.
-   *
    */
   @BindingAdapter("detailSetSharedTransitionMovieImage")
   public static void setMovieImage(ImageView view, String url) {
@@ -118,5 +121,4 @@ public class DetailActivity extends AppCompatActivity {
           }
         });
   }
-
 }
