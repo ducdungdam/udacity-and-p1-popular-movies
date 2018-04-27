@@ -6,9 +6,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Switch;
 import com.ducdungdam.popularmovies.R;
 import com.ducdungdam.popularmovies.model.Movie;
 import com.ducdungdam.popularmovies.model.MovieList;
+import com.ducdungdam.popularmovies.model.Review;
+import com.ducdungdam.popularmovies.model.ReviewList;
+import com.ducdungdam.popularmovies.model.Trailer;
+import com.ducdungdam.popularmovies.model.TrailerList;
+import com.ducdungdam.popularmovies.utilities.YoutubeUtils;
 import java.util.List;
 import java.util.concurrent.Executors;
 import retrofit2.Call;
@@ -46,6 +52,12 @@ public class MovieRepository {
 
     @GET("movie/{movieId}")
     Call<Movie> getMovie(@Path("movieId") int movieId, @Query("api_key") String key);
+
+    @GET("movie/{movieId}/videos")
+    Call<TrailerList> getTrailers(@Path("movieId") int movieId, @Query("api_key") String key);
+
+    @GET("movie/{movieId}/reviews")
+    Call<ReviewList> getReviews(@Path("movieId") int movieId, @Query("api_key") String key);
   }
 
 
@@ -134,6 +146,74 @@ public class MovieRepository {
   }
 
   /**
+   * Returns a List of Trailers of a Movie by a given ID
+   *
+   * @param context Context used to access String Resource
+   * @return List of Trailer by given ID
+   */
+  public static LiveData<TrailerList> getTrailers(Context context, int movieId,
+      final LoadingListener l) {
+    String tmdbApiKey = context.getResources().getString(R.string.TMDB_API_KEY);
+
+    final MutableLiveData<TrailerList> trailers = new MutableLiveData<>();
+
+    Call<TrailerList> call = getRetrofitClient().create(TMBDbService.class)
+        .getTrailers(movieId, tmdbApiKey);
+
+    call.enqueue(new Callback<TrailerList>() {
+      @Override
+      public void onResponse(@NonNull Call<TrailerList> call,
+          @NonNull Response<TrailerList> response) {
+        trailers.postValue(response.body());
+        if (l != null) {
+          l.onFinish();
+        }
+      }
+
+      @Override
+      public void onFailure(@NonNull Call<TrailerList> call, @NonNull Throwable t) {
+        Log.e(TAG, "Retrofit onFailure");
+      }
+    });
+
+    return trailers;
+  }
+
+  /**
+   * Returns a List of Reviews of a Movie by a given ID
+   *
+   * @param context Context used to access String Resource
+   * @return List of Reviews by given ID
+   */
+  public static LiveData<ReviewList> getReviews(Context context, int movieId,
+      final LoadingListener l) {
+    String tmdbApiKey = context.getResources().getString(R.string.TMDB_API_KEY);
+
+    final MutableLiveData<ReviewList> reviews = new MutableLiveData<>();
+
+    Call<ReviewList> call = getRetrofitClient().create(TMBDbService.class)
+        .getReviews(movieId, tmdbApiKey);
+
+    call.enqueue(new Callback<ReviewList>() {
+      @Override
+      public void onResponse(@NonNull Call<ReviewList> call,
+          @NonNull Response<ReviewList> response) {
+        reviews.postValue(response.body());
+        if (l != null) {
+          l.onFinish();
+        }
+      }
+
+      @Override
+      public void onFailure(@NonNull Call<ReviewList> call, @NonNull Throwable t) {
+        Log.e(TAG, "Retrofit onFailure");
+      }
+    });
+
+    return reviews;
+  }
+
+  /**
    * Returns absolute Image Url.
    *
    * @param url relative path of the image
@@ -144,6 +224,39 @@ public class MovieRepository {
         .appendPath(PATH_QUALITY)
         .build();
     return requestQueryUri.toString() + url;
+  }
+
+
+  static final String TRAILER_SOURCE_YOUTUBE = "YouTube";
+  /**
+   * Returns Trailer Thumbnail Image Url.
+   *
+   * @param trailer pojo of Trailer
+   * @return absolute path of the trailer thumbnail
+   */
+
+  public static String getTrailerUrl(Trailer trailer) {
+    switch (trailer.getSite()){
+      case TRAILER_SOURCE_YOUTUBE:
+        return YoutubeUtils.getVideoUrl(trailer.getKey());
+      default:
+        return null;
+    }
+  }
+  /**
+   * Returns Trailer Thumbnail Image Url.
+   *
+   * @param trailer pojo of Trailer
+   * @return absolute path of the trailer thumbnail
+   */
+
+  public static String getTrailerThumbnail(Trailer trailer) {
+    switch (trailer.getSite()){
+      case TRAILER_SOURCE_YOUTUBE:
+        return YoutubeUtils.getThumbnail(trailer.getKey());
+      default:
+        return null;
+    }
   }
 
   /**
