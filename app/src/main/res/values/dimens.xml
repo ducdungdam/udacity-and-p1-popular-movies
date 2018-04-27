@@ -3,6 +3,7 @@
 
   <!-- Global -->
   <dimen name="movie_item_spacing">8dp</dimen>
+  <dimen name="trailer_item_spacing">4dp</dimen>
 
   <dimen name="horizontal_margin">16dp</dimen>
   <dimen name="vertical_margin">16dp</dimen>

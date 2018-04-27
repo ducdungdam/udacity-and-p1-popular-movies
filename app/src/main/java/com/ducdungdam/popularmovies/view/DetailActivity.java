@@ -12,13 +12,20 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.ducdungdam.popularmovies.R;
+import com.ducdungdam.popularmovies.adapter.TrailerAdapter;
 import com.ducdungdam.popularmovies.data.MovieRepository;
 import com.ducdungdam.popularmovies.databinding.ActivityDetailBinding;
 import com.ducdungdam.popularmovies.model.Movie;
+import com.ducdungdam.popularmovies.model.ReviewList;
+import com.ducdungdam.popularmovies.model.Trailer;
+import com.ducdungdam.popularmovies.model.TrailerList;
+import com.ducdungdam.popularmovies.utilities.YoutubeUtils;
 import com.ducdungdam.popularmovies.viewmodel.DetailViewModel;
+import com.ducdungdam.popularmovies.widget.TrailerItemDecoration;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -69,7 +76,8 @@ public class DetailActivity extends AppCompatActivity {
     model = ViewModelProviders.of(this).get(DetailViewModel.class);
     rootView.setViewModel(model);
 
-    model.getMovie(movieId).observe(this, new Observer<Movie>() {
+    model.setMovieId(movieId);
+    model.getMovie().observe(this, new Observer<Movie>() {
       @Override
       public void onChanged(@Nullable final Movie movie) {
         if (movie != null) {
@@ -77,6 +85,37 @@ public class DetailActivity extends AppCompatActivity {
         }
       }
     });
+
+    model.getTrailerList().observe(this, new Observer<TrailerList>() {
+      @Override
+      public void onChanged(@Nullable final TrailerList trailerList) {
+        if (trailerList != null) {
+          TrailerAdapter trailerAdapter = (TrailerAdapter) rootView.rvTrailer.getAdapter();
+          if (trailerAdapter != null) {
+            trailerAdapter.setMovieList(trailerList.getTrailerList());
+          } else {
+            TrailerAdapter adapter = new TrailerAdapter(trailerList.getTrailerList());
+            adapter.setOnClickListener(new TrailerAdapter.OnClickListener() {
+              @Override
+              public void onClick(View view, Trailer trailer) {
+                //Implement
+                MovieRepository.getTrailerUrl(trailer);
+              }
+            });
+            rootView.rvTrailer.setAdapter(adapter);
+            rootView.rvTrailer
+                .addItemDecoration(new TrailerItemDecoration(DetailActivity.this));
+          }
+        }
+      }
+    });
+
+    model.getReviewList().
+        observe(this, new Observer<ReviewList>() {
+          @Override
+          public void onChanged(@Nullable final ReviewList reviewList) {
+          }
+        });
   }
 
   private void closeOnError() {

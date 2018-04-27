@@ -24,7 +24,11 @@
 
   <string name="movie_poster_description">Poster of the Movie</string>
   <string name="movie_backdrop_description">Backdrop Image of the Movie</string>
+  <string name="movie_trailer_thumbnail_description">Thumbnail of the Movie Trailer</string>
   <string name="movie_overview_label">Overview</string>
+  <string name="movie_trailer_label">Trailers</string>
+  <string name="movie_review_label">Reviews</string>
+
 
   <!-- Transition name for Shared Transition of movie poster between Activities -->
   <string name="movie_poster_transition_name">movie_poster</string>
