@@ -39,7 +39,7 @@ public class TrailerAdapter extends RecyclerView.Adapter<ViewHolder> {
     return trailerList.size();
   }
 
-  public void setMovieList(List<Trailer> l) {
+  public void setTrailerList(List<Trailer> l) {
     trailerList = l;
     notifyDataSetChanged();
   }

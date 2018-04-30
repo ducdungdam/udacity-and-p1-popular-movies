@@ -21,7 +21,7 @@
     <ImageView
       android:id="@+id/iv_movie_trailer_thumbnail"
       android:layout_width="145dp"
-      android:layout_height="100dp"
+      android:layout_height="120dp"
       android:adjustViewBounds="true"
       android:background="@android:color/transparent"
       android:contentDescription="@string/movie_trailer_thumbnail_description"

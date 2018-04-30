@@ -205,6 +205,8 @@
           android:layout_width="0dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="@dimen/vertical_margin"
+          android:paddingTop="@dimen/small_vertical_margin"
+          android:paddingBottom="@dimen/small_vertical_margin"
           android:orientation="horizontal"
           app:layoutManager="android.support.v7.widget.LinearLayoutManager"
           app:layout_constraintEnd_toEndOf="@+id/tv_title"
@@ -229,22 +231,28 @@
           app:layout_constraintEnd_toEndOf="@+id/tv_review_label"
           app:layout_constraintStart_toStartOf="@+id/tv_review_label"
           app:layout_constraintTop_toBottomOf="@+id/tv_review_label"/>
-        <TextView
-          android:id="@+id/tv_review"
+
+        <android.support.v7.widget.RecyclerView
+          android:id="@+id/rv_review"
           android:layout_width="0dp"
-          android:layout_height="0dp"
-          android:layout_marginTop="@dimen/vertical_margin"
-          android:layout_marginBottom="16dp"
-          android:layout_marginEnd="@dimen/horizontal_margin"
-          android:lineSpacingExtra="@dimen/text_line_spacing_extra"
-          android:text="@{movie.overview}"
-          app:layout_constraintBottom_toBottomOf="parent"
-          app:layout_constraintEnd_toEndOf="parent"
-          app:layout_constraintHorizontal_bias="0.0"
+          android:layout_height="wrap_content"
+          android:paddingBottom="@dimen/vertical_margin"
+          android:visibility="invisible"
+          app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+          app:layout_constraintEnd_toEndOf="@+id/tv_title"
           app:layout_constraintStart_toStartOf="@+id/tv_review_label"
-          app:layout_constraintTop_toBottomOf="@+id/tv_review_label_divider"
-          app:layout_constraintVertical_bias="0.0"
-          tools:text="@string/placeholder_movie_overview"/>
+          app:layout_constraintTop_toBottomOf="@+id/tv_review_label_divider"/>
+        <TextView
+          android:id="@+id/tv_review_empty"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/vertical_margin"
+          android:paddingBottom="@dimen/vertical_margin"
+          android:text="@string/movie_review_empty_message"
+          android:visibility="visible"
+          app:layout_constraintEnd_toEndOf="@+id/tv_title"
+          app:layout_constraintStart_toStartOf="@+id/tv_review_label"
+          app:layout_constraintTop_toBottomOf="@+id/tv_review_label_divider"/>
       </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
   </android.support.design.widget.CoordinatorLayout>

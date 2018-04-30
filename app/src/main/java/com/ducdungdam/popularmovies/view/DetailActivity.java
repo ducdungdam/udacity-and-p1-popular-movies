@@ -9,13 +9,16 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.ducdungdam.popularmovies.R;
+import com.ducdungdam.popularmovies.adapter.ReviewAdapter;
 import com.ducdungdam.popularmovies.adapter.TrailerAdapter;
 import com.ducdungdam.popularmovies.data.MovieRepository;
 import com.ducdungdam.popularmovies.databinding.ActivityDetailBinding;
@@ -23,8 +26,8 @@ import com.ducdungdam.popularmovies.model.Movie;
 import com.ducdungdam.popularmovies.model.ReviewList;
 import com.ducdungdam.popularmovies.model.Trailer;
 import com.ducdungdam.popularmovies.model.TrailerList;
-import com.ducdungdam.popularmovies.utilities.YoutubeUtils;
 import com.ducdungdam.popularmovies.viewmodel.DetailViewModel;
+import com.ducdungdam.popularmovies.widget.ReviewItemDecoration;
 import com.ducdungdam.popularmovies.widget.TrailerItemDecoration;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
@@ -92,7 +95,7 @@ public class DetailActivity extends AppCompatActivity {
         if (trailerList != null) {
           TrailerAdapter trailerAdapter = (TrailerAdapter) rootView.rvTrailer.getAdapter();
           if (trailerAdapter != null) {
-            trailerAdapter.setMovieList(trailerList.getTrailerList());
+            trailerAdapter.setTrailerList(trailerList.getTrailerList());
           } else {
             TrailerAdapter adapter = new TrailerAdapter(trailerList.getTrailerList());
             adapter.setOnClickListener(new TrailerAdapter.OnClickListener() {
@@ -110,10 +113,31 @@ public class DetailActivity extends AppCompatActivity {
       }
     });
 
+    rootView.rvReview.setNestedScrollingEnabled(
+        false); //Avoid scroll collusion with CoordinatorLayout and NestedScroll in layout
     model.getReviewList().
         observe(this, new Observer<ReviewList>() {
           @Override
           public void onChanged(@Nullable final ReviewList reviewList) {
+            if (reviewList != null) {
+              rootView.tvReviewLabel.setText(String.format(getString(R.string.movie_review_label), reviewList.getReviewList().size()));
+              if (reviewList.getReviewList().size() == 0) {
+                rootView.rvReview.setVisibility(View.GONE);
+                rootView.tvReviewEmpty.setVisibility(View.VISIBLE);
+              } else {
+                rootView.rvReview.setVisibility(View.VISIBLE);
+                rootView.tvReviewEmpty.setVisibility(View.GONE);
+                ReviewAdapter reviewAdapter = (ReviewAdapter) rootView.rvReview.getAdapter();
+                if (reviewAdapter != null) {
+                  reviewAdapter.setReviewList(reviewList.getReviewList());
+                } else {
+                  ReviewAdapter adapter = new ReviewAdapter(reviewList.getReviewList());
+                  rootView.rvReview.setAdapter(adapter);
+                  rootView.rvReview
+                      .addItemDecoration(new ReviewItemDecoration(DetailActivity.this));
+                }
+              }
+            }
           }
         });
   }

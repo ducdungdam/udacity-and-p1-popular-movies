@@ -4,12 +4,14 @@
   <!-- Global -->
   <dimen name="movie_item_spacing">8dp</dimen>
   <dimen name="trailer_item_spacing">4dp</dimen>
+  <dimen name="review_item_spacing">16dp</dimen>
 
   <dimen name="horizontal_margin">16dp</dimen>
   <dimen name="vertical_margin">16dp</dimen>
   <dimen name="large_vertical_margin">32dp</dimen>
   <dimen name="large_horizontal_margin">32dp</dimen>
   <dimen name="small_vertical_margin">8dp</dimen>
+  <dimen name="small_horizontal_margin">8dp</dimen>
 
   <dimen name="text_title">18sp</dimen>
   <dimen name="text_subtitle">16sp</dimen>

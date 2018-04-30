@@ -27,7 +27,8 @@
   <string name="movie_trailer_thumbnail_description">Thumbnail of the Movie Trailer</string>
   <string name="movie_overview_label">Overview</string>
   <string name="movie_trailer_label">Trailers</string>
-  <string name="movie_review_label">Reviews</string>
+  <string name="movie_review_label" formatted="false">Reviews (%1$d)</string>
+  <string name="movie_review_empty_message">There are no reviews yet.</string>
 
 
   <!-- Transition name for Shared Transition of movie poster between Activities -->
@@ -38,6 +39,9 @@
   <string name="placeholder_movie_release_date">04. February 2018</string>
   <string name="placeholder_movie_vote_average">9.2</string>
   <string name="placeholder_movie_overview">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer</string>
+
+  <string name="placeholder_review_author">John Doe</string>
+  <string name="placeholder_review_content">Nice Movie</string>
 
   <!-- Default error message -->
   <string name="error_title">Oops&#8230;</string>
