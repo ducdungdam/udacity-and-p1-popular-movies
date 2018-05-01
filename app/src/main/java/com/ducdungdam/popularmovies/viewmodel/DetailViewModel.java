@@ -5,16 +5,12 @@ import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
-import android.util.Log;
 import com.ducdungdam.popularmovies.data.MovieRepository;
 import com.ducdungdam.popularmovies.data.MovieRepository.LoadingListener;
 import com.ducdungdam.popularmovies.model.Movie;
-import com.ducdungdam.popularmovies.model.Review;
 import com.ducdungdam.popularmovies.model.ReviewList;
-import com.ducdungdam.popularmovies.model.Trailer;
 import com.ducdungdam.popularmovies.model.TrailerList;
 import com.ducdungdam.popularmovies.utilities.NetworkUtils;
-import java.util.List;
 
 /**
  * Created by ducdungdam on 20.03.18.
@@ -78,6 +74,10 @@ public class DetailViewModel extends BaseViewModel {
 
   public void setMovieId(Integer movieId){
     this.movieId.setValue(movieId);
+  }
+
+  public LiveData<Integer> getMovieId(){
+    return this.movieId;
   }
 
   public LiveData<Movie> getMovie() {

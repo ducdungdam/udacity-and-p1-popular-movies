@@ -9,10 +9,8 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DividerItemDecoration;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -79,7 +77,10 @@ public class DetailActivity extends AppCompatActivity {
     model = ViewModelProviders.of(this).get(DetailViewModel.class);
     rootView.setViewModel(model);
 
-    model.setMovieId(movieId);
+    if(model.getMovieId().getValue() == null || model.getMovieId().getValue() != movieId) {
+      model.setMovieId(movieId);
+    }
+
     model.getMovie().observe(this, new Observer<Movie>() {
       @Override
       public void onChanged(@Nullable final Movie movie) {
