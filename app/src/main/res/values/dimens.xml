@@ -28,4 +28,6 @@
   <dimen name="detail_view_overlap_horizontal">32dp</dimen>
   <dimen name="detail_movie_poster_width">100dp</dimen>
   <dimen name="detail_movie_poster_height">150dp</dimen>
+  <dimen name="detail_trailer_item_width">145dp</dimen>
+  <dimen name="detail_trailer_item_height">120dp</dimen>
 </resources>
