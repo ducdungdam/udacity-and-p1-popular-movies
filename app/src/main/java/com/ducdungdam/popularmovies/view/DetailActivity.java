@@ -2,15 +2,19 @@ package com.ducdungdam.popularmovies.view;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.BindingAdapter;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -102,8 +106,21 @@ public class DetailActivity extends AppCompatActivity {
             adapter.setOnClickListener(new TrailerAdapter.OnClickListener() {
               @Override
               public void onClick(View view, Trailer trailer) {
-                //Implement
-                MovieRepository.getTrailerUrl(trailer);
+                String url = MovieRepository.getTrailerUrl(trailer);
+                if(url != null && !url.isEmpty()) {
+                  Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                  startActivity(browserIntent);
+                } else {
+                  AlertDialog alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(DetailActivity.this, R.style.AlertDialogTheme)).create();
+                  alertDialog.setMessage(getString(R.string.error_source_message));
+                  alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
+                      new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                          dialog.dismiss();
+                        }
+                      });
+                  alertDialog.show();
+                }
               }
             });
             rootView.rvTrailer.setAdapter(adapter);
