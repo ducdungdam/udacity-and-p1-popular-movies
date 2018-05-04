@@ -5,6 +5,7 @@ import android.arch.core.util.Function;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Transformations;
+import android.databinding.ObservableField;
 import com.ducdungdam.popularmovies.data.MovieRepository;
 import com.ducdungdam.popularmovies.data.MovieRepository.LoadingListener;
 import com.ducdungdam.popularmovies.model.Movie;
@@ -25,6 +26,8 @@ public class DetailViewModel extends BaseViewModel {
   private LiveData<Movie> movie;
   private LiveData<TrailerList> trailerList;
   private LiveData<ReviewList> reviewList;
+  public ObservableField<Boolean> isFavorite;
+
 
   DetailViewModel(Application app) {
     super(app);
@@ -33,6 +36,7 @@ public class DetailViewModel extends BaseViewModel {
     movie = new MutableLiveData<>();
     trailerList = new MutableLiveData<>();
     reviewList = new MutableLiveData<>();
+    isFavorite = new ObservableField<>();
 
     movie = Transformations.switchMap(movieId, new Function<Integer, LiveData<Movie>>() {
       @Override
@@ -44,9 +48,9 @@ public class DetailViewModel extends BaseViewModel {
         if (movie.getValue() == null) {
           state.set(State.LOADING);
           return MovieRepository
-              .getMovie(getApplication().getApplicationContext(), movieId, new LoadingListener() {
+              .getMovie(getApplication().getApplicationContext(), movieId, new LoadingListener<Movie>() {
                 @Override
-                public void onFinish() {
+                public void onFinish(Movie m) {
                   state.set(State.DEFAULT);
                 }
               });
@@ -68,11 +72,10 @@ public class DetailViewModel extends BaseViewModel {
         return MovieRepository.getReviews(getApplication().getApplicationContext(), movieId, null);
       }
     });
-
-
   }
 
   public void setMovieId(Integer movieId){
+    this.isFavorite.set(MovieRepository.isFavorite(getApplication().getApplicationContext(), movieId));
     this.movieId.setValue(movieId);
   }
 

@@ -30,7 +30,8 @@ public class MovieAdapter extends RecyclerView.Adapter<ViewHolder> {
   }
 
   @Override
-  @NonNull public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+  @NonNull
+  public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     return new MovieViewHolder(LayoutInflater.from(parent.getContext())
         .inflate(R.layout.view_movie_list_item, parent, false));
   }
@@ -79,7 +80,6 @@ public class MovieAdapter extends RecyclerView.Adapter<ViewHolder> {
 
   /**
    * Interface definition for a callback to be invoked when a view is clicked.
-   *
    */
   public interface OnClickListener {
 

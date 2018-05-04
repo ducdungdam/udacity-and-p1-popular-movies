@@ -39,8 +39,8 @@ public final class PopularMoviesPreferences {
   public static int getSortTypeIndex(Context context) {
     String sortType = getSortType(context);
     String[] sortValues = context.getResources().getStringArray(R.array.sortValuesKey);
-    for(int i = 0; i < sortValues.length; i++){
-      if (sortValues[i].equals(sortType)){
+    for (int i = 0; i < sortValues.length; i++) {
+      if (sortValues[i].equals(sortType)) {
         return i;
       }
     }

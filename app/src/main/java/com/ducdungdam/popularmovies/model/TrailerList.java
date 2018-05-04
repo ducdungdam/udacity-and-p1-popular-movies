@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class TrailerList {
+
   @SerializedName("id")
   @Expose
   private Integer id;
@@ -21,10 +22,10 @@ public class TrailerList {
   }
 
   public List<Trailer> getTrailerList() {
-    return trailerList ;
+    return trailerList;
   }
 
   public void setTrailerList(List<Trailer> trailerList) {
-    this.trailerList = trailerList ;
+    this.trailerList = trailerList;
   }
 }

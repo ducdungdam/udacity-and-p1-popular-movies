@@ -17,7 +17,8 @@ public class BaseViewModel extends AndroidViewModel {
   public enum State {
     DEFAULT,
     LOADING,
-    NO_NETWORK
+    NO_NETWORK,
+    MESSAGE
   }
 
   BaseViewModel(Application app) {

@@ -15,8 +15,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.ducdungdam.popularmovies.R;
@@ -59,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
       return;
     }
 
-    int movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1);
+    final int movieId = intent.getIntExtra(EXTRA_MOVIE_ID, -1);
     if (movieId == -1) {
       closeOnError();
       return;
@@ -81,7 +83,7 @@ public class DetailActivity extends AppCompatActivity {
     model = ViewModelProviders.of(this).get(DetailViewModel.class);
     rootView.setViewModel(model);
 
-    if(model.getMovieId().getValue() == null || model.getMovieId().getValue() != movieId) {
+    if (model.getMovieId().getValue() == null || model.getMovieId().getValue() != movieId) {
       model.setMovieId(movieId);
     }
 
@@ -107,11 +109,13 @@ public class DetailActivity extends AppCompatActivity {
               @Override
               public void onClick(View view, Trailer trailer) {
                 String url = MovieRepository.getTrailerUrl(trailer);
-                if(url != null && !url.isEmpty()) {
+                if (url != null && !url.isEmpty()) {
                   Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                   startActivity(browserIntent);
                 } else {
-                  AlertDialog alertDialog = new AlertDialog.Builder(new ContextThemeWrapper(DetailActivity.this, R.style.AlertDialogTheme)).create();
+                  AlertDialog alertDialog = new AlertDialog.Builder(
+                      new ContextThemeWrapper(DetailActivity.this, R.style.AlertDialogTheme))
+                      .create();
                   alertDialog.setMessage(getString(R.string.error_source_message));
                   alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, getString(R.string.ok),
                       new DialogInterface.OnClickListener() {
@@ -138,7 +142,8 @@ public class DetailActivity extends AppCompatActivity {
           @Override
           public void onChanged(@Nullable final ReviewList reviewList) {
             if (reviewList != null) {
-              rootView.tvReviewLabel.setText(String.format(getString(R.string.movie_review_label), reviewList.getReviewList().size()));
+              rootView.tvReviewLabel.setText(String.format(getString(R.string.movie_review_label),
+                  reviewList.getReviewList().size()));
               if (reviewList.getReviewList().size() == 0) {
                 rootView.rvReview.setVisibility(View.GONE);
                 rootView.tvReviewEmpty.setVisibility(View.VISIBLE);
@@ -158,6 +163,23 @@ public class DetailActivity extends AppCompatActivity {
             }
           }
         });
+
+    rootView.fabFavorite.setOnClickListener(new OnClickListener() {
+      @Override
+      public void onClick(View view) {
+        Movie m = model.getMovie().getValue();
+        boolean b = model.isFavorite.get();
+        if (m != null) {
+          if (!b) {
+            MovieRepository.addFavorite(DetailActivity.this, m);
+            model.isFavorite.set(true);
+          } else {
+            MovieRepository.removeFavorite(DetailActivity.this, m);
+            model.isFavorite.set(false);
+          }
+        }
+      }
+    });
   }
 
   private void closeOnError() {

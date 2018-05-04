@@ -10,14 +10,17 @@
   <!-- Key name for storing sort criteria in SharedPreferences -->
   <string name="pref_sort_key" translatable="false">sort_type</string>
 
-  <!-- Default postal code for location preference -->
+  <!-- Default sort option for sort dialog -->
   <string name="pref_sort_default" translatable="false">@string/pref_sort_popular</string>
 
-  <!-- Label for metric option in temperature unit preference -->
+  <!-- Label for sort option in sort dialog -->
   <string name="pref_sort_label_popular">Most Popular</string>
 
-  <!-- Label for imperial option in temperature unit preference -->
+  <!-- Label for sort option in sort dialog -->
   <string name="pref_sort_label_rated">Highest Rated</string>
+
+  <!-- Label for sort option in sort dialog -->
+  <string name="pref_sort_label_favorite">Favorites</string>
 
   <!-- Key name for sort criteria preference in SharedPreferences -->
   <string name="pref_sort_popular" translatable="false">popular</string>
@@ -25,12 +28,15 @@
   <!-- Key name for sort criteria preference in SharedPreferences -->
   <string name="pref_sort_rated" translatable="false">highest_rated</string>
 
+  <!-- Key name for sort criteria preference in SharedPreferences -->
+  <string name="pref_sort_favorite" translatable="false">favorite</string>
+
   <string name="movie_poster_description">Poster of the Movie</string>
   <string name="movie_backdrop_description">Backdrop Image of the Movie</string>
   <string name="movie_trailer_thumbnail_description">Thumbnail of the Movie Trailer</string>
   <string name="movie_overview_label">Overview</string>
   <string name="movie_trailer_label">Trailers</string>
-  <string name="movie_review_label" formatted="false">Reviews (%1$d)</string>
+  <string formatted="false" name="movie_review_label">Reviews (%1$d)</string>
   <string name="movie_review_empty_message">There are no reviews yet.</string>
 
 
@@ -51,4 +57,7 @@
   <string name="error_message">Something went wrong. Please try again.</string>
   <string name="error_network_message">Seems like your are not connected to the Internet. Please turn it on and try it again.</string>
   <string name="error_source_message">Seems like the source is currently not available. Please try again later.</string>
+
+
+  <string name="message_no_favorites">Seems like you do not have any favorites.\nGo ahead and add some! ❤</string>
 </resources>

@@ -49,6 +49,18 @@
       android:layout_gravity="center"
       android:visibility="@{viewModel.state == State.LOADING ? View.VISIBLE : View.GONE}"/>
 
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/large_horizontal_margin"
+      android:layout_marginEnd="@dimen/large_horizontal_margin"
+      android:layout_marginLeft="@dimen/large_horizontal_margin"
+      android:layout_marginRight="@dimen/large_horizontal_margin"
+      android:layout_gravity="center"
+      android:text="@string/message_no_favorites"
+      android:textAlignment="center"
+      android:visibility="@{viewModel.state == State.MESSAGE ? View.VISIBLE : View.GONE}"/>
+
     <android.support.v7.widget.RecyclerView
       android:id="@+id/rv_movie_list"
       android:layout_width="match_parent"

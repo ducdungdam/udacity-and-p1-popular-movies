@@ -1,7 +1,6 @@
 package com.ducdungdam.popularmovies.utilities;
 
 import android.databinding.BindingAdapter;
-import android.util.Log;
 import android.widget.ImageView;
 import com.ducdungdam.popularmovies.data.MovieRepository;
 import com.ducdungdam.popularmovies.model.Trailer;
@@ -14,6 +13,7 @@ import com.squareup.picasso.Picasso;
  */
 
 public class DataBindingUtils {
+
   /**
    * Loads an Image by a given String Source to an ImageView.
    *

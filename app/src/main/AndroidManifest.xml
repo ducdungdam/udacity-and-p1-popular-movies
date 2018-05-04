@@ -19,7 +19,14 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:parentActivityName=".view.MainActivity" android:name=".view.DetailActivity" />
+    <activity
+      android:name=".view.DetailActivity"
+      android:parentActivityName=".view.MainActivity"/>
+
+    <provider
+      android:authorities="com.ducdungdam.popularmovies"
+      android:exported="false"
+      android:name="com.ducdungdam.popularmovies.data.FavoriteProvider"/>
   </application>
 
 </manifest>

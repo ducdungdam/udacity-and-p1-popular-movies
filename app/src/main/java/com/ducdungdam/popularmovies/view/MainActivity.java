@@ -13,6 +13,7 @@ import android.support.v4.util.Pair;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,22 +58,26 @@ public class MainActivity extends AppCompatActivity {
     model.getMovieList().observe(this, new Observer<List<Movie>>() {
       @Override
       public void onChanged(@Nullable final List<Movie> movieList) {
-        if (rootView.rvMovieList.getAdapter() == null) {
-          rootView.rvMovieList
-              .setLayoutManager(new GridLayoutManager(MainActivity.this, numColumns));
-          MovieAdapter movieAdapter = new MovieAdapter(movieList);
-          movieAdapter.setOnClickListener(new MovieAdapter.OnClickListener() {
-            @Override
-            public void onClick(View view, Movie movie) {
-              startDetailActivity(view, movie.getId());
-            }
-          });
-          rootView.rvMovieList.setAdapter(movieAdapter);
-          rootView.rvMovieList
-              .addItemDecoration(new MovieItemDecoration(MainActivity.this, numColumns));
+        if (movieList == null || movieList.size() == 0) {
+          model.state.set(State.MESSAGE);
         } else {
-          MovieAdapter adapter = (MovieAdapter) rootView.rvMovieList.getAdapter();
-          adapter.setMovieList(movieList);
+          if (rootView.rvMovieList.getAdapter() == null) {
+            rootView.rvMovieList
+                .setLayoutManager(new GridLayoutManager(MainActivity.this, numColumns));
+            MovieAdapter movieAdapter = new MovieAdapter(movieList);
+            movieAdapter.setOnClickListener(new MovieAdapter.OnClickListener() {
+              @Override
+              public void onClick(View view, Movie movie) {
+                startDetailActivity(view, movie.getId());
+              }
+            });
+            rootView.rvMovieList.setAdapter(movieAdapter);
+            rootView.rvMovieList
+                .addItemDecoration(new MovieItemDecoration(MainActivity.this, numColumns));
+          } else {
+            MovieAdapter adapter = (MovieAdapter) rootView.rvMovieList.getAdapter();
+            adapter.setMovieList(movieList);
+          }
         }
       }
     });
@@ -102,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
           if (!currentSortType.equals(sortType)) {
             PopularMoviesPreferences.setSortType(getApplicationContext(), sortType);
             sortDialog.dismiss();
-            model.getSortType().setValue(sortType);
+            model.setSortType(sortType);
           }
         }
       });
@@ -114,11 +119,10 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onResume() {
     super.onResume();
-    if (model.state.get() == State.NO_NETWORK &&
-        NetworkUtils.hasNetwork(this)) {
-      String sortType = PopularMoviesPreferences.getSortType(this);
+    String sortType = PopularMoviesPreferences.getSortType(this);
+    if (model.state.get() == State.NO_NETWORK && NetworkUtils.hasNetwork(this)) {
       PopularMoviesPreferences.setSortType(this, sortType);
-      model.getSortType().setValue(sortType);
+      model.setSortType(sortType);
     }
   }
 
