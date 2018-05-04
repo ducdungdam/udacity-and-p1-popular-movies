@@ -13,8 +13,8 @@ You can retrieve one by creating an account and requesting it [here](https://www
 Add your API Key in res/values/api_keys.xml
 
 ## Used Resources
-Filter Icon (res/drawable/ic_filter.png) made by [Bogdan Rosu](https://www.flaticon.com/authors/bogdan-rosu) from [Flaticon](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/).
-Play Icon (res/drawable/ic_play.png) made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/) is licensed by [Flaticon Basic License](https://file000.flaticon.com/downloads/license/license.pdf).
+Filter Icon (res/drawable/ic_filter.png) made by [Bogdan Rosu](https://www.flaticon.com/authors/bogdan-rosu) from [Flaticon](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/).\
+Play Icon (res/drawable/ic_play.png) made by [Freepik](https://www.flaticon.com/authors/freepik) from [Flaticon](https://www.flaticon.com/) is licensed by [Flaticon Basic License](https://file000.flaticon.com/downloads/license/license.pdf).\
 Favorite Icon (res/drawable/ic_filter.png) made by [Google](https://www.flaticon.com/authors/google) from [Flaticon](https://www.flaticon.com/) is licensed by [Creative Commons BY 3.0](http://creativecommons.org/licenses/by/3.0/).
 
 ## Stages
